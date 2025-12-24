@@ -1,59 +1,94 @@
-## Title of the Project
-Small description about the project like one below
-The integration of a chatbot within a hostel booking system, aimed at streamlining the reservation process for students and improving the overall user experience.
+# HCAT-FusionNet:  Multimodal Preprocessing and Fusion for Survival and Recurrence Prediction,using variational autoencoders and cross-modal attention for holistic healthcare outcome prediction.
 
-## About
-<!--Detailed Description about the project-->
-Tailored Chatbot for Hostel Booking System is a project designed to integrate a chatbot that leverages advanced natural language processing techniques to understand and respond to user queries to the hostel booking system. Traditional hostel booking processes are often time-consuming and involve manual searches and extensive communication with hostel staff. This project seeks to overcome these challenges by creating an easy-to-use chatbot interface that assists students in addressing inquiries.
+This repository contains preprocessing pipelines and training framework for the **HANCOCK (Head and Neck Cancer Cohort)** dataset used in the **Hancothon25 Challenge** at MICCAI 2025. The challenge focuses on predicting **5-year survival** and **2-year recurrence** using multimodal patient data (clinical, pathological, semantic text, spatial histopathology, temporal blood tests).
+
+Our solution introduces **novel preprocessing, imputation, and fusion strategies** to extract robust 512-dimensional embeddings from heterogeneous modalities, followed by **advanced multi-modal training**.
+
+## Preprocessed_h5_files and Model Weights
+* **Huggingface**: [H5](https://huggingface.co/ragunath-ravi/hcat-fusionnet/tree/main/preprocessed_h5_files)
+* **HuggingFace**: [Model Weights](https://huggingface.co/ragunath-ravi/hcat-fusionnet/tree/main/model/hcat_checkpoints_v_improved)
+
+---
+
+---
 
 ## Features
-<!--List the features of the project as shown below-->
-- Implements advance neural network method.
-- A framework based application for deployment purpose.
-- High scalability.
-- Less time complexity.
-- A specific scope of Chatbot response model, using json data format.
 
-## Requirements
-<!--List the requirements of the project as shown below-->
-* Operating System: Requires a 64-bit OS (Windows 10 or Ubuntu) for compatibility with deep learning frameworks.
-* Development Environment: Python 3.6 or later is necessary for coding the sign language detection system.
-* Deep Learning Frameworks: TensorFlow for model training, MediaPipe for hand gesture recognition.
-* Image Processing Libraries: OpenCV is essential for efficient image processing and real-time hand gesture recognition.
-* Version Control: Implementation of Git for collaborative development and effective code management.
-* IDE: Use of VSCode as the Integrated Development Environment for coding, debugging, and version control integration.
-* Additional Dependencies: Includes scikit-learn, TensorFlow (versions 2.4.1), TensorFlow GPU, OpenCV, and Mediapipe for deep learning tasks.
+* **Clinical Data Preprocessing**: Advanced imputation ensemble + VAE-based handling of missing data.
+* **Pathological Data Preprocessing**: Probabilistic imputation with graph smoothing and 512-d embeddings.
+* **Semantic Text Processing**: ClinicalBERT / TF-IDF + SVD pipelines for histories, reports, and surgery descriptions.
+* **Spatial Histopathology Aggregation**: Transformer-based aggregation of patch-level features with spatial awareness.
+* **Temporal Blood Data**: Physiology-aware normalization, KNN refinement, and LSTM encoder for sequential signals.
+* **Fusion Training**: Multi-modal VAE with attention-based cross-modal imputation, joint latent space learning, and uncertainty quantification.
+* **Evaluation**: Binary classification of survival and recurrence, reporting accuracy and F1-score.
 
-## System Architecture
-<!--Embed the system architecture diagram as shown below-->
-
-![Screenshot 2023-11-25 133637](https://github.com/<<yourusername>>/Hand-Gesture-Recognition-System/assets/75235455/a60c11f3-0a11-47fb-ac89-755d5f45c995)
+---
 
 
-## Output
 
-<!--Embed the Output picture at respective places as shown below as shown below-->
-#### Output1 - Name of the output
+## Documentation
 
-![Screenshot 2023-11-25 134037](https://github.com/<<yourusername>>/Hand-Gesture-Recognition-System/assets/75235455/8c2b6b5c-5ed2-4ec4-b18e-5b6625402c16)
+Detailed explanations of each pipeline are available here:
 
-#### Output2 - Name of the output
-![Screenshot 2023-11-25 134253](https://github.com/<<yourusername>>/Hand-Gesture-Recognition-System/assets/75235455/5e05c981-05ca-4aaa-aea2-d918dcf25cb7)
+* [Clinical Preprocessing](https://github.com/Ragu-123/hcat-fusionnet/blob/main/Documentation/clinical.md)
+* [Pathological Preprocessing](https://github.com/Ragu-123/hcat-fusionnet/blob/main/Documentation/pathological.md)
+* [Semantic Text Processing](https://github.com/Ragu-123/hcat-fusionnet/blob/main/Documentation/semantic.md)
+* [Spatial Histopathology](https://github.com/Ragu-123/hcat-fusionnet/blob/main/Documentation/spatial.md)
+* [Temporal Blood Data](https://github.com/Ragu-123/hcat-fusionnet/blob/main/Documentation/temporal.md)
+* [Training Pipeline](https://github.com/Ragu-123/hcat-fusionnet/blob/main/Documentation/train.md)
 
-Detection Accuracy: 96.7%
-Note: These metrics can be customized based on your actual performance evaluations.
+---
+
+## Results
+
+From the enhanced training pipeline (`train2.py`), the system achieved:
+
+* **5-year Survival F1-score**: **0.80**
+* **2-year Recurrence F1-score**: **0.95**
+* **Average F1-score**: **0.875**
+
+*(See [`enhanced_hcat_training_summary.json`](enhanced_hcat_training_summary.json) for full training logs and config.)*
+
+---
+
+## Methods Summary
+
+* **Imputation**: Multi-modal VAE, KNN, PCA, and graph smoothing.
+* **Embeddings**: Standardized 512-d representations across modalities.
+* **Fusion**: Attention-based cross-modal integration with uncertainty weighting.
+* **Classification**: Binary prediction of survival and recurrence with robust evaluation.
+
+---
+
+## Challenge Context
+
+This work addresses the **HANCOCK multimodal dataset** provided for **Hancothon25 (MICCAI 2025)**. The dataset includes **763 patients** with modalities:
+
+* Clinical structured data
+* Pathology structured data
+* Histopathology WSIs & TMAs
+* Tabular blood test data
+* Free-text clinical/surgery reports
+
+Our framework is designed for **precision oncology**, enabling predictive modeling for treatment planning and follow-up.
+
+---
+
+## Performance & Insights
+
+* The system demonstrates strong **generalization across modalities**.
+* Temporal and pathological modalities improved recurrence prediction.
+* Clinical and semantic features boosted survival classification.
+* Fusion strategies with uncertainty modeling ensured robustness under missing modalities.
 
 
-## Results and Impact
-<!--Give the results and impact as shown below-->
-The Sign Language Detection System enhances accessibility for individuals with hearing and speech impairments, providing a valuable tool for inclusive communication. The project's integration of computer vision and deep learning showcases its potential for intuitive and interactive human-computer interaction.
 
-This project serves as a foundation for future developments in assistive technologies and contributes to creating a more inclusive and accessible digital environment.
+---
 
-## Articles published / References
-1. N. S. Gupta, S. K. Rout, S. Barik, R. R. Kalangi, and B. Swampa, “Enhancing Heart Disease Prediction Accuracy Through Hybrid Machine Learning Methods ”, EAI Endorsed Trans IoT, vol. 10, Mar. 2024.
-2. A. A. BIN ZAINUDDIN, “Enhancing IoT Security: A Synergy of Machine Learning, Artificial Intelligence, and Blockchain”, Data Science Insights, vol. 2, no. 1, Feb. 2024.
+## Contact
 
+For questions or collaborations:
 
+* **Author**: [Harish G](https://github.com/Harish2404lll), [Ragunath R](https://github.com/Ragu-123), [Sanjay S](https://github.com/22002102)
 
 
